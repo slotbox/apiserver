@@ -43,7 +43,6 @@ module.exports = {
             if(err) return callback(err);
 
             var job = dbResult.rows[0];
-            console.log(job);
             if(job.distributed_to) {
               // These details are then used by the CLI cient to open a real-time socket
               // to the dyno.
@@ -53,7 +52,7 @@ module.exports = {
                 upid: job.dyno_id,
                 process: 'dyno.' + job.dyno_id,
                 action: 'complete',
-                rendezvous_url: 'tcp://slotbox.local:4321/' + job.rez_id,
+                rendezvous_url: 'tcp://' + conf.openruko.base_domain + ':4321/' + job.rez_id,
                 type: 'Ps',
                 elapsed: 0,
                 attached: true,
